@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SampleDogApi</string>
+    <string name="facebook_app_id">196521720975269</string>
+    <string name="fb_login_protocol_scheme">fb196521720975269</string>
+</resources>
