@@ -1,6 +1,7 @@
 package com.esraanayel.sampledogapi.mainlist.di;
 
 import com.esraanayel.sampledogapi.mainlist.MainCategoryFragment;
+import com.esraanayel.sampledogapi.mainlist.view.CategoryActivity;
 
 import javax.inject.Singleton;
 
@@ -12,6 +13,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = CategoryModule.class)
 public interface CategoryListingComponent {
-    void inject(MainCategoryFragment target);
+    void inject(CategoryActivity target);
 
 }

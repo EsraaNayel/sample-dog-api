@@ -97,8 +97,7 @@ public class MainCategoryFragment extends BaseSearchFragment implements Category
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DaggerCategoryListingComponent.builder().categoryModule(new CategoryModule(this, getBaseURL(), getContext()))
-                .build().inject(this);
+
         if (getArguments() != null) {
             searchQuery = getArguments().getString(SEARCH_QUERY);
             filterCategoryName = getArguments().getString(FILTER_CATEGORY_NAME);
@@ -143,16 +142,16 @@ public class MainCategoryFragment extends BaseSearchFragment implements Category
 
     @Override
     public void updateData(CategoryModel items) {
-        if (mAdapter == null) {
-            mAdapter = new CategoryListingRecyclerViewAdapter(items.getMessage(), onCategoryClickListener);
-            LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-            categoryRecyclerView.setLayoutManager(manager);
-            categoryRecyclerView.setAdapter(mAdapter);
-            categoryRecyclerView.setOnScrolledToEndListener(onCategoriesRecyclerViewScrolledToEndListener);
-        } else {
-            mAdapter.addAll(items.getMessage());
-        }
-        mPresenter.LoadImages("african");
+//        if (mAdapter == null) {
+//            mAdapter = new CategoryListingRecyclerViewAdapter(items.getMessage(), onCategoryClickListener);
+//            LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+//            categoryRecyclerView.setLayoutManager(manager);
+//            categoryRecyclerView.setAdapter(mAdapter);
+//            categoryRecyclerView.setOnScrolledToEndListener(onCategoriesRecyclerViewScrolledToEndListener);
+//        } else {
+//            mAdapter.addAll(items.getMessage());
+//        }
+//        mPresenter.LoadImages("african");
 
     }
 

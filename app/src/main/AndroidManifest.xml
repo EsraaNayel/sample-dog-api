@@ -24,6 +24,19 @@
             </intent-filter>
 
         </activity>
+
+        <activity android:name=".mainlist.view.CategoryActivity">
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+
+        </activity>
         <activity
             android:name=".SearchActivity"
             android:screenOrientation="portrait" />

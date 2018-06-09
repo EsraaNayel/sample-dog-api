@@ -4,5 +4,6 @@
     <string name="fb_login_protocol_scheme">fb196521720975269</string>
     <string name="no_intenrent_connection">check the internet connection</string>
     <string name="search_title">Search</string>
+    <string name="search_hint">search</string>
 
 </resources>

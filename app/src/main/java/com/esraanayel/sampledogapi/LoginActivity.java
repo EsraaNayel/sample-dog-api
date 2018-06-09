@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 
+import com.esraanayel.sampledogapi.mainlist.view.CategoryActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -79,7 +80,7 @@ public class LoginActivity extends Activity {
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         Log.d("Success", "Success");
-                        startMainActivity();
+                        startActivity();
                     }
 
                     @Override
@@ -95,8 +96,8 @@ public class LoginActivity extends Activity {
                 });
     }
 
-    void startMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+    void startActivity() {
+        Intent intent = new Intent(this, CategoryActivity.class);
         startActivity(intent);
     }
 }

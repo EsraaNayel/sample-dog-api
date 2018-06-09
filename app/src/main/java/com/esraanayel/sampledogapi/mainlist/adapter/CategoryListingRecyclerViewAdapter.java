@@ -4,13 +4,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.esraanayel.sampledogapi.R;
-import com.esraanayel.sampledogapi.utils.ImageLoader;
+import com.esraanayel.sampledogapi.mainlist.model.CategoryModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,13 +22,21 @@ import butterknife.ButterKnife;
  * Created by Esraa on 6/6/2018.
  */
 
-public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<CategoryListingRecyclerViewAdapter.ViewHolder> {
+public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<CategoryListingRecyclerViewAdapter.ViewHolder> implements Filterable {
     List<String> mDataset;
     View.OnClickListener mOnClickListener;
+
+
+    List<CategoryModel> list;
+    private List<CategoryModel> contactListFiltered;
+    private CategoryListingRecyclerViewAdapter listener;
+
 
     public CategoryListingRecyclerViewAdapter(List<String> items, View.OnClickListener onClickListener) {
         this.mDataset = items;
         this.mOnClickListener = onClickListener;
+
+
     }
 
     @Override
@@ -91,5 +101,41 @@ public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<Cat
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    contactListFiltered = list;
+                } else {
+                    List<CategoryModel> filteredList = new ArrayList<>();
+                    ArrayList arrayList = new ArrayList<String>();
+                    for (int i = 0; i < mDataset.size(); i++) {
+                        String rowItem = mDataset.get(i);
+                        if (rowItem.toLowerCase().contains(charString.toLowerCase())) {
+                            arrayList.add(rowItem);
+                        }
+                    }
+
+                    contactListFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = contactListFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                contactListFiltered = (ArrayList<CategoryModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        }
+
+                ;
     }
 }
