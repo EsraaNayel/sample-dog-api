@@ -88,7 +88,7 @@ public class CategoryModule {
     @Provides
     public CategoryListingPresenter providesEventsListingPresenter(CategoryListingView view,
                                                                    CategoryListingInteractor interactor, Context context) {
-        return new CategoryListingPresenterImpl(view, interactor, mLimit, context);
+        return new CategoryListingPresenterImpl(view, interactor, context);
     }
 
 }

@@ -12,8 +12,12 @@ import retrofit2.adapter.rxjava2.Result;
  */
 
 public interface CategoryListingInteractor {
+    public static final String QUERY_KEY = "q";
+    public static final String CATEGORY_NAME_KEY = "category_name";
+    public static final String CATEGORY_IMAGE_KEY = "category_image";
 
-    Single<Result<CategoryModel>> getCategoryList();
+    Single<Result<CategoryModel>> getCategoryList(String query,String categoryName);
+    Single<Result<CategoryModel>>getCategoryImagesList(String categoryName);
 
     boolean saveCategory(List<CategoryModel> items);
     Single<List<CategoryModel>> getCategory();

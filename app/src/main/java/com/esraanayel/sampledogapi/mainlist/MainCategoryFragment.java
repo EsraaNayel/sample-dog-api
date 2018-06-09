@@ -19,6 +19,8 @@ import com.esraanayel.sampledogapi.mainlist.di.DaggerCategoryListingComponent;
 import com.esraanayel.sampledogapi.mainlist.model.CategoryModel;
 import com.esraanayel.sampledogapi.mainlist.presenter.CategoryListingPresenter;
 import com.esraanayel.sampledogapi.mainlist.view.CategoryListingView;
+import com.esraanayel.sampledogapi.utils.BaseSearchFragment;
+import com.esraanayel.sampledogapi.utils.FilterFragment;
 
 import javax.inject.Inject;
 
@@ -31,13 +33,15 @@ import static com.esraanayel.sampledogapi.utils.Constant.getBaseURL;
  * Created by Esraa on 6/6/2018.
  */
 
-public class MainCategoryFragment extends Fragment implements CategoryListingView {
+public class MainCategoryFragment extends BaseSearchFragment implements CategoryListingView, FilterFragment {
     public static final String TAG = "category_listing_fragment";
     private static final int PAGE_LIMIT = 20;
     private String searchQuery;
-    private String filterFacultyId;
+    private String filterCategoryName;
     @BindView(R.id.recycler)
     LoadMoreRecyclerView categoryRecyclerView;
+    private static final String SEARCH_QUERY = "search_query";
+    private static final java.lang.String FILTER_CATEGORY_NAME = "filter_category_name";
 
 
     @Inject
@@ -46,6 +50,31 @@ public class MainCategoryFragment extends Fragment implements CategoryListingVie
 
 
     private CategoryListingRecyclerViewAdapter mAdapter;
+
+    @Override
+    public void searchByText(String query) {
+        searchQuery = query;
+        if (mAdapter != null) {
+            mAdapter.clearDataset();
+        }
+//        mPresenter.resetCurrentPagingValues();
+//        mPresenter.loadCategoryList(query, filterCategoryName);
+    }
+
+    @Override
+    public void requestFilter(String filter) {
+        if (filter == "category") {
+            filterCategoryName = mPresenter.getUserFacultyId();
+        } else {
+            filterCategoryName = null;
+        }
+
+        if (mAdapter != null) {
+            mAdapter.clearDataset();
+        }
+//        mPresenter.resetCurrentPagingValues();
+//        mPresenter.loadCategoryList(searchQuery, filterCategoryName);
+    }
 
     public interface OnFragmentInteractionListener {
         void onEventClicked(CategoryModel news);
@@ -56,23 +85,33 @@ public class MainCategoryFragment extends Fragment implements CategoryListingVie
         return fragment;
     }
 
+    public static Fragment newInstance(@Nullable String query, @Nullable String filterCategoryName) {
+        Bundle bundle = new Bundle();
+        bundle.putString(SEARCH_QUERY, query);
+        bundle.putString(FILTER_CATEGORY_NAME, filterCategoryName);
+        Fragment fragment = new MainCategoryFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DaggerCategoryListingComponent.builder().categoryModule(new CategoryModule(this, getBaseURL(), getContext()))
                 .build().inject(this);
         if (getArguments() != null) {
-//            searchQuery = getArguments().getString(SEARCH_QUERY);
-//            filterFacultyId = getArguments().getString(FILTER_FACULTY_ID);
+            searchQuery = getArguments().getString(SEARCH_QUERY);
+            filterCategoryName = getArguments().getString(FILTER_CATEGORY_NAME);
         }
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.category_listing_fragment, container, false);
         ButterKnife.bind(this, view);
-        mPresenter.requestMoreItemsWithQueryFilters(/*searchQuery, filterFacultyId*/);
+        mPresenter.loadCategoryList(searchQuery, filterCategoryName);
 
         return view;
     }
@@ -109,16 +148,18 @@ public class MainCategoryFragment extends Fragment implements CategoryListingVie
             LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             categoryRecyclerView.setLayoutManager(manager);
             categoryRecyclerView.setAdapter(mAdapter);
-            categoryRecyclerView.setOnScrolledToEndListener(onNewsRecyclerViewScrolledToEndListener);
+            categoryRecyclerView.setOnScrolledToEndListener(onCategoriesRecyclerViewScrolledToEndListener);
         } else {
             mAdapter.addAll(items.getMessage());
         }
+        mPresenter.LoadImages("african");
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mPresenter.requestMoreItemsWithQueryFilters(/*searchQuery, filterFacultyId*/);
+//        mPresenter.loadCategoryList(searchQuery, filterCategoryName);
 
     }
 
@@ -140,10 +181,10 @@ public class MainCategoryFragment extends Fragment implements CategoryListingVie
     }
 
 
-    LoadMoreRecyclerView.OnScrolledToEndListener onNewsRecyclerViewScrolledToEndListener = new LoadMoreRecyclerView.OnScrolledToEndListener() {
+    LoadMoreRecyclerView.OnScrolledToEndListener onCategoriesRecyclerViewScrolledToEndListener = new LoadMoreRecyclerView.OnScrolledToEndListener() {
         @Override
         public void reachedEnd() {
-//            mPresenter.requestMoreItemsWithQueryFilters(searchQuery, filterFacultyId);
+//            mPresenter.loadCategoryList(searchQuery, filterCategoryName);
         }
     };
 
@@ -155,7 +196,7 @@ public class MainCategoryFragment extends Fragment implements CategoryListingVie
 //            CategoryModel selectedNewsItem = mAdapter.getItemByPosition(position);
 
             String categoryModel = mAdapter.getItemByPosition(position);
-            Toast.makeText(getContext(), "categoryModel"+categoryModel, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "categoryModel" + categoryModel, Toast.LENGTH_SHORT).show();
 //
 //            // Start MSANotificationsDetailsActivity
 //            Intent intent = new Intent(getContext(), NewsDetailsActivity.class);
@@ -168,7 +209,7 @@ public class MainCategoryFragment extends Fragment implements CategoryListingVie
     public void onDestroy() {
         super.onDestroy();
         if (mPresenter != null) {
-            mPresenter.onDestroy();
+//            mPresenter.onDestroy();
         }
     }
 }

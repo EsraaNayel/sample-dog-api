@@ -4,9 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.esraanayel.sampledogapi.R;
+import com.esraanayel.sampledogapi.utils.ImageLoader;
 
 import java.util.List;
 
@@ -36,8 +39,11 @@ public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<Cat
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String item = mDataset.get(position);
-//        ImageLoader.loadImage(item.getMessage(), holder.categoryImageView);
+
+//        ImageLoader.loadImage(item,holder.categoryImageView);
         holder.categoryTitleTextView.setText(item);
+//        Glide.with(imageView.getContext()).asDrawable().load(imageUrl).into(imageView);
+
 //        holder.categoryTitleTextView.setText(item.getCategoryTitle());
     }
 
@@ -75,8 +81,8 @@ public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<Cat
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        @BindView(R.id.category_image_view)
-//        ImageView categoryImageView;
+        @BindView(R.id.category_image_view)
+        ImageView categoryImageView;
         @BindView(R.id.category_text_view)
         TextView categoryTitleTextView;
 

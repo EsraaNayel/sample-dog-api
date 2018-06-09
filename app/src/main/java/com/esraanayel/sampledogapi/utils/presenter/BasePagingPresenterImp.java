@@ -58,9 +58,9 @@ public abstract class BasePagingPresenterImp implements BasePagingPresenter {
     @Override
     public void requestMoreItems() {
 
-//        if (!isLoading && hasMoreItems()) {
+        if (!isLoading && hasMoreItems()) {
             loadMoreItems();
-//        }
+        }
 
     }
 
