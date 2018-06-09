@@ -11,8 +11,6 @@ import io.reactivex.annotations.Nullable;
 public interface CategoryListingPresenter {
 
     void loadOfflineCategories();
-    void loadCategoryList(@Nullable String query, @Nullable String category);
-    void LoadImages(@Nullable String categoryName);
-
-    String getUserFacultyId();
+    void loadCategoryList();
+    void LoadImages();
 }

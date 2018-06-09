@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.esraanayel.sampledogapi.R;
 import com.esraanayel.sampledogapi.mainlist.model.CategoryModel;
+import com.esraanayel.sampledogapi.utils.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +51,8 @@ public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<Cat
     public void onBindViewHolder(ViewHolder holder, int position) {
         String item = mDataset.get(position);
 
-//        ImageLoader.loadImage(item,holder.categoryImageView);
+        ImageLoader.loadImage(item, holder.categoryImageView);
         holder.categoryTitleTextView.setText(item);
-//        Glide.with(imageView.getContext()).asDrawable().load(imageUrl).into(imageView);
-
-//        holder.categoryTitleTextView.setText(item.getCategoryTitle());
     }
 
     @Override
@@ -134,8 +132,6 @@ public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<Cat
                 contactListFiltered = (ArrayList<CategoryModel>) filterResults.values;
                 notifyDataSetChanged();
             }
-        }
-
-                ;
+        };
     }
 }

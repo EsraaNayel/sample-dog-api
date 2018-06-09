@@ -10,5 +10,6 @@ import com.esraanayel.sampledogapi.utils.view.BasePagingView;
 public interface CategoryListingView extends BasePagingView{
 
     void updateData(CategoryModel items);
+//    void updateImages(CategoryModel items);
 
 }

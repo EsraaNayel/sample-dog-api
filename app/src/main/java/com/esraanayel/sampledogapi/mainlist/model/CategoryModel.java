@@ -15,25 +15,12 @@ import static android.os.UserHandle.readFromParcel;
 
 public class CategoryModel implements Parcelable {
 
-//    @SerializedName("status")
-//    private String id;
-
-//    @SerializedName("status")
-//    private String categoryTitle;
 
     @SerializedName("message")
-    private List<String>message;
+    private List<String> message;
 
     public CategoryModel() {
     }
-
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
 
     public List<String> getMessage() {
         return message;
@@ -43,14 +30,6 @@ public class CategoryModel implements Parcelable {
         this.message = message;
     }
 
-//    public String getCategoryTitle() {
-//        return categoryTitle;
-//    }
-//
-//    public void setCategoryTitle(String categoryTitle) {
-//        this.categoryTitle = categoryTitle;
-//    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -58,7 +37,6 @@ public class CategoryModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeString(this.getCategoryTitle());
         dest.writeList(this.getMessage());
     }
 

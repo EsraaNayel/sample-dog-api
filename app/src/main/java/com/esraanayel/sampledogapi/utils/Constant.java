@@ -12,7 +12,7 @@ public class Constant {
         if(BuildConfig.DEBUG ){
             return "https://dog.ceo/api/breeds/" ;  //debug
         }else{
-            return "https://dog.ceo/api/breeds/list/all";    //release
+            return "https://dog.ceo/api/breeds";    //release
         }
     }
 }

@@ -16,8 +16,8 @@ public interface CategoryListingInteractor {
     public static final String CATEGORY_NAME_KEY = "category_name";
     public static final String CATEGORY_IMAGE_KEY = "category_image";
 
-    Single<Result<CategoryModel>> getCategoryList(String query,String categoryName);
-    Single<Result<CategoryModel>>getCategoryImagesList(String categoryName);
+    Single<Result<CategoryModel>> getCategoryList();
+    Single<Result<CategoryModel>>getCategoryImagesList();
 
     boolean saveCategory(List<CategoryModel> items);
     Single<List<CategoryModel>> getCategory();

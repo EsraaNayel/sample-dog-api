@@ -3,9 +3,7 @@ package com.esraanayel.sampledogapi.mainlist.interactor;
 import com.esraanayel.sampledogapi.mainlist.model.CategoryModel;
 import com.esraanayel.sampledogapi.mainlist.network.CategoryService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Single;
 import retrofit2.Retrofit;
@@ -23,22 +21,13 @@ public class CategoryListingInteractorImpl implements CategoryListingInteractor 
     }
 
     @Override
-    public Single<Result<CategoryModel>> getCategoryList(String query, String categoryName) {
-
-        Map<String, String> map = new HashMap<>();
-        if (query != null && query != "") {
-            map.put(QUERY_KEY, query);
-        }
-        if (categoryName != null && categoryName != "") {
-            map.put(CATEGORY_NAME_KEY, categoryName);
-        }
-        return mRetrofit.create(CategoryService.class).getAllCategory(map);
+    public Single<Result<CategoryModel>> getCategoryList() {
+        return mRetrofit.create(CategoryService.class).getAllCategory();
     }
 
     @Override
-    public Single<Result<CategoryModel>> getCategoryImagesList(String categoryImage) {
-
-        return mRetrofit.create(CategoryService.class).getAllCategoryImages(categoryImage);
+    public Single<Result<CategoryModel>> getCategoryImagesList() {
+        return mRetrofit.create(CategoryService.class).getAllCategoryImages();
     }
 
     @Override

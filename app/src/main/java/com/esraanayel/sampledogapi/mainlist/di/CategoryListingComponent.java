@@ -1,6 +1,5 @@
 package com.esraanayel.sampledogapi.mainlist.di;
 
-import com.esraanayel.sampledogapi.mainlist.MainCategoryFragment;
 import com.esraanayel.sampledogapi.mainlist.view.CategoryActivity;
 
 import javax.inject.Singleton;
