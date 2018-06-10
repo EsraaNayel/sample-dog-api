@@ -7,11 +7,7 @@ package com.esraanayel.sampledogapi.utils.view;
 public interface BasePagingView {
     void showProgress();
 
-    void showLoadingMoreProgress();
-
     void showError();
 
     void hideProgress();
-
-    void hideLoadingMoreProgress();
 }

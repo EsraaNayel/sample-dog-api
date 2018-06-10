@@ -3,6 +3,8 @@ package com.esraanayel.sampledogapi.mainlist.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.esraanayel.sampledogapi.R;
@@ -33,41 +36,22 @@ import static com.esraanayel.sampledogapi.utils.Constant.getBaseURL;
  */
 
 public class CategoryActivity extends AppCompatActivity implements CategoryListingView {
+
     public static final String CATEGORY_TITLE_KEY = "Category_Title";
+//    @BindView(R.id.prgrs_load_more)
+//    ProgressBar mainProgressBar;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recycler)
     RecyclerView categoryRecyclerView;
     SearchView msearchView;
+
+//    @BindView(R.id.swipe_to_refresh_items)
+//    SwipeRefreshLayout swipeRefreshLayout;
     private Menu menu;
     @Inject
     CategoryListingPresenter mPresenter;
     private CategoryListingRecyclerViewAdapter mAdapter;
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void showLoadingMoreProgress() {
-
-    }
-
-    @Override
-    public void showError() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
-    public void hideLoadingMoreProgress() {
-
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,8 +59,9 @@ public class CategoryActivity extends AppCompatActivity implements CategoryListi
         setContentView(R.layout.activity_category);
         DaggerCategoryListingComponent.builder().categoryModule(new CategoryModule(this, getBaseURL(), getApplicationContext()))
                 .build().inject(this);
+//        swipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
         mPresenter.loadCategoryList();
-        mPresenter.LoadImages();
+//        mPresenter.LoadImages();
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         prepareToolbar();
@@ -93,6 +78,8 @@ public class CategoryActivity extends AppCompatActivity implements CategoryListi
         } else {
             mAdapter.addAll(items.getMessage());
         }
+//        swipeRefreshLayout.setRefreshing(false);
+
 //        mPresenter.LoadImages("african");
 
     }
@@ -190,4 +177,35 @@ public class CategoryActivity extends AppCompatActivity implements CategoryListi
         super.onBackPressed();
     }
 
+
+    @Override
+    public void showProgress() {
+//        mainProgressBar.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public void showError() {
+        showToast(R.string.general_error);
+    }
+
+    @Override
+    public void hideProgress() {
+//        mainProgressBar.setVisibility(View.GONE);
+//        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            if (mAdapter != null) {
+                mAdapter.clearDataset();
+            }
+            mPresenter.loadCategoryList();
+        }
+    };
+
+    private void showToast(@StringRes int resId) {
+        Toast.makeText(getApplicationContext(), resId, Toast.LENGTH_SHORT).show();
+    }
 }

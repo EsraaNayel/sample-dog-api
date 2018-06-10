@@ -2,10 +2,12 @@ package com.esraanayel.sampledogapi.categorydetails;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.esraanayel.sampledogapi.R;
@@ -28,6 +30,12 @@ public class CategoryDeatailsActivity extends AppCompatActivity {
 
     @BindView(R.id.img_category)
     ImageView imageviewCategory;
+
+    @BindView(R.id.prgrs_load_more)
+    ProgressBar mainProgressBar;
+
+    @BindView(R.id.swipe_to_refresh_items)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

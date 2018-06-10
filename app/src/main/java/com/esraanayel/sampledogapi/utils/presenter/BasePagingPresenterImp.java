@@ -82,15 +82,15 @@ public abstract class BasePagingPresenterImp implements BasePagingPresenter {
     }
 
     protected void hideProgress() {
-        view.hideProgress();
-        view.hideLoadingMoreProgress();
+//        view.hideProgress();
+//        view.hideLoadingMoreProgress();
     }
 
     protected void showProgressByOffsetNumber() {
         if (offset == 0) {
             view.showProgress();
         } else {
-            view.showLoadingMoreProgress();
+//            view.showLoadingMoreProgress();
         }
     }
 

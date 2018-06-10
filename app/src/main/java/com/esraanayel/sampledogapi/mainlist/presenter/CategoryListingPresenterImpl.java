@@ -6,6 +6,7 @@ import android.util.Log;
 import com.esraanayel.sampledogapi.mainlist.interactor.CategoryListingInteractor;
 import com.esraanayel.sampledogapi.mainlist.model.CategoryModel;
 import com.esraanayel.sampledogapi.mainlist.view.CategoryListingView;
+import com.esraanayel.sampledogapi.utils.NetworkHelper;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -40,12 +41,20 @@ public class CategoryListingPresenterImpl implements CategoryListingPresenter {
 
     @Override
     public void loadCategoryList() {
+        if (!NetworkHelper.isNetworkAvailable(mContext)) {
+
+            mView.showError();
+            return;
+        }
+        disposeRequest();
+        mView.showProgress();
         mCompositeDisposable.add(mInteractor.getCategoryList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Result<CategoryModel>>() {
                     @Override
                     public void accept(@NonNull Result<CategoryModel> listResult) throws Exception {
+                       mView.hideProgress();
 
                         if (listResult.response().body().getMessage() != null) {
                             Log.d("RESPONSE", new Gson().toJson(listResult.response().body()));
@@ -68,8 +77,7 @@ public class CategoryListingPresenterImpl implements CategoryListingPresenter {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         mView.showError();
-
-//                        hideProgress();
+                        mView.hideProgress();
 
                     }
                 }));

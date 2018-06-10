@@ -51,7 +51,7 @@ public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<Cat
     public void onBindViewHolder(ViewHolder holder, int position) {
         String item = mDataset.get(position);
 
-        ImageLoader.loadImage(item, holder.categoryImageView);
+//        ImageLoader.loadImage(item, holder.categoryImageView);
         holder.categoryTitleTextView.setText(item);
     }
 
@@ -89,8 +89,8 @@ public class CategoryListingRecyclerViewAdapter extends RecyclerView.Adapter<Cat
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.category_image_view)
-        ImageView categoryImageView;
+//        @BindView(R.id.category_image_view)
+//        ImageView categoryImageView;
         @BindView(R.id.category_text_view)
         TextView categoryTitleTextView;
 

@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dcceb1"
-    tools:context=".mainlist.view.CategoryActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".mainlist.view.CategoryActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -15,13 +16,27 @@
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/swipe_to_refresh_items"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1">-->
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+
+    <ProgressBar
+        android:id="@+id/prgrs_load_more"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        >
-    </android.support.v7.widget.RecyclerView>
-
-
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone" />
 </LinearLayout>
